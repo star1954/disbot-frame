@@ -8,7 +8,7 @@ var msgc = 0;
 var tempdata;
 const txtdata = tempdata;
 tempdata = fs.readFileSync('data.txt','utf8')
-//load loadData
+//loadData
 function loadData() {
   var apos = txtdata.search("!admins");
   tempdata = [];
