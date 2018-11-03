@@ -6,14 +6,26 @@ var admins = [234843909291769856];
 var admin = true;
 var msgc = 0;
 var tempdata;
-
-tempdata = fs.readFileSync('data.txt','utf8')
-
 const txtdata = tempdata;
-var apos = txtdata.search("!admins");
-for(var i = apos+6; i<txtdata.length;i++){
-    
+tempdata = fs.readFileSync('data.txt','utf8')
+//load loadData
+function loadData() {
+  var apos = txtdata.search("!admins");
+  tempdata = [];
+  var temp0 = 0;
+  for(var i = apos+6; i<txtdata.length;i++){
+    if(txtdata[i]===','){
+      temp0++;
+      continue;
+    }else if (txtdata[i]===';') {
+      temp0 = 0;
+      break;
+    }
+    tempdata[temp0].append(txtdata[i]);
+  }
+  console.log("admins: "+tempdata);
 }
+
 
 
 
@@ -81,7 +93,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     if (message.substring(0, 1) == '!') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
-       
+
         args = args.splice(1);
         switch(cmd) {
             // !ping
@@ -100,7 +112,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             var drop = lineQueue.removeread();
             msgc++;
             break;
-            
+
             case 'imtheadmin':
             if(!admin){console.log("Adding "+user+":"+userID+" as an admin");
             admins.push(userID);
